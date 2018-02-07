@@ -133,7 +133,7 @@ seed = ARGV[0].to_i
 
 for i in 1..5 do
 	if seed != nil
-		rng = Random.new seed
+		rng = Random.new (seed+i)
 		driver = CitySim.new i, rng
 	else
 		driver = CitySim.new i
