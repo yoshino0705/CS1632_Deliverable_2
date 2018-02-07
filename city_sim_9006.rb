@@ -3,9 +3,9 @@ class CitySim
 	def initialize(id, rng = Random.new)
 		# constructor
 
-		@@locations = ['Hospital', 'Cathedral', 'Hillman', 'Museum']
+		@locations = ['Hospital', 'Cathedral', 'Hillman', 'Museum']
 		@rng = rng
-		@start = @@locations.sample(random: @rng)
+		@start = @locations.sample(random: Random.new(@rng.rand(100)))
 		@books = 0
 		@classes = 1
 		@toy = 0
@@ -69,10 +69,10 @@ class CitySim
 		# create a table for the physical map
 		# loc[from] = to
 		loc = Hash.new
-		loc['Hospital'] = ['Cathedral', 'Hillman'].sample(random: @rng)
-		loc['Cathedral'] = ['Monroeville', 'Museum'].sample(random: @rng)
-		loc['Hillman'] = ['Downtown', 'Hospital'].sample(random: @rng)
-		loc['Museum'] = ['Cathedral', 'Hillman'].sample(random: @rng)
+		loc['Hospital'] = ['Cathedral', 'Hillman'].sample(random: Random.new(@rng.rand(50)))
+		loc['Cathedral'] = ['Monroeville', 'Museum'].sample(random: Random.new(@rng.rand(64)))
+		loc['Hillman'] = ['Downtown', 'Hospital'].sample(random: Random.new(@rng.rand(87)))
+		loc['Museum'] = ['Cathedral', 'Hillman'].sample(random: Random.new(@rng.rand(666)))
 
 		# get the next location
 		next_loc = loc[@current_place]
@@ -127,9 +127,18 @@ class CitySim
 end
 
 # main function
+raise "Only 1 integer argument needed, no more no less." unless ARGV.count == 1
+	
+seed = ARGV[0].to_i
 
 for i in 1..5 do
-	driver = CitySim.new i
+	if seed != nil
+		rng = Random.new seed
+		driver = CitySim.new i, rng
+	else
+		driver = CitySim.new i
+	end
+
 	while driver.current != 'Outside'
 		driver.get_next
 	end
