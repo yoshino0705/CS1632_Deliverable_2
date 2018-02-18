@@ -52,13 +52,10 @@ class CitySim
 		# print the direction message
 		puts "Driver #{@id} heading from #{@current_place} to #{next_loc} via #{via(@current_place, next_loc)}."
 
-		# assign the next location to the current_place variable
-		if next_loc == 'Monroeville' or next_loc == 'Downtown'
-			@current_place = 'Outside'				
-		else
-			@current_place = next_loc
-		end
+		return next_loc
+	end
 
+	def update_values(next_loc)
 		# increment variables
 		if next_loc == 'Hillman'
 			@books += 1
@@ -72,7 +69,12 @@ class CitySim
 			@classes *= 2
 		end
 
-		nil
+		# assign the next location to the current_place variable
+		if next_loc == 'Monroeville' or next_loc == 'Downtown'
+			@current_place = 'Outside'				
+		else
+			@current_place = next_loc
+		end
 
 	end
 

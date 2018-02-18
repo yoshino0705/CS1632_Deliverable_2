@@ -135,7 +135,43 @@ class CitySimTest < Minitest::Test
 	# and increments corresponding values based on the new value
 	# returns nil
 	def test_get_next
-		assert_nil @driver.get_next
+		refute_nil @driver.get_next
+	end
+
+	# UNIT TESTS FOR METHOD update_values(next_loc)
+	# This method will increase @book by 1 if next_loc='Hillman'
+	# This method will increase @toy by 1 if next_loc='Museum'
+	# This method will increase @classes by a factor of 2 if next_loc='Cathedral'
+
+	def test_update_values_book
+		cs = CitySim.new 0
+
+		def cs.get_next; 'Hillman'; end
+
+		cs.update_values(cs.get_next)
+		assert_equal cs.books, 1
+		
+	end
+
+
+	def test_update_values_toy
+		cs = CitySim.new 0
+
+		def cs.get_next; 'Museum'; end
+
+		cs.update_values(cs.get_next)
+		assert_equal cs.toy, 1
+		
+	end
+
+	def test_update_values_classes
+		cs = CitySim.new 0
+
+		def cs.get_next; 'Cathedral'; end
+
+		cs.update_values(cs.get_next)
+		assert_equal cs.classes, 2
+		
 	end
 
 

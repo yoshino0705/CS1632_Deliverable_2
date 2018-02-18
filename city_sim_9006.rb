@@ -14,7 +14,8 @@ for i in 1..5 do
 	end
 
 	while driver.current_place != 'Outside'
-		driver.get_next
+		next_loc = driver.get_next
+		driver.update_values(next_loc)
 	end
 	driver.results
 
